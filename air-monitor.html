@@ -1,0 +1,69 @@
+<script type="text/javascript">
+	RED.nodes.registerType('air-monitor', {
+		category: 'devices',
+		color: '#87A980',
+		defaults: {
+			name: { value: "" },
+			refresh: { value: 5, validate: RED.validators.number() },
+			token: { value: "", required: true },
+			ip: { value: "", required: true, validate: RED.validators.regex(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/) },
+			pm25: { value: true },
+			co2: { value: true },
+			tvocs: { value: true },
+			temperature: { value: true },
+			humidity: { value: true },
+		},
+		inputs: 1,
+		outputs: 1,
+		icon: "font-awesome/fa-thermometer-full",
+		label: function () {
+			return this.name || "air-monitor";
+		}
+	});
+</script>
+
+<script type="text/html" data-template-name="air-monitor">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+	<div class="form-row">
+        <label for="node-input-refresh"><i class="fa fa-tag"></i>Refresh rate (seconds)</label>
+        <input type="number" id="node-input-refresh" placeholder="5">
+    </div>
+	<div class="form-row">
+        <label for="node-input-token"><i class="fa fa-tag"></i> API Token</label>
+        <input type="text" id="node-input-token" placeholder="Token">
+    </div>
+	<div class="form-row">
+        <label for="node-input-ip"><i class="fa fa-tag"></i>IP Address</label>
+        <input type="text" id="node-input-ip" placeholder="x.x.x.x">
+    </div>
+	</br>
+	<h3>Enabled properties</h3>
+	<div class="form-row">
+        <input type="checkbox" id="node-input-pm25" style="display: inline-block; width: auto; vertical-align: top;" checked>
+        <label style="width: auto;" for="node-input-pm25">PM 2.5</label></input>
+    </div>
+	<div class="form-row">
+        <input type="checkbox" id="node-input-co2" style="display: inline-block; width: auto; vertical-align: top;" checked>
+        <label style="width: auto;" for="node-input-co2">CO2</label></input>
+    </div>
+	<div class="form-row">
+        <input type="checkbox" id="node-input-tvocs" style="display: inline-block; width: auto; vertical-align: top;" checked>
+        <label style="width: auto;" for="node-input-tvocs">TVOCs</label></input>
+    </div>
+	<div class="form-row">
+        <input type="checkbox" id="node-input-temperature" style="display: inline-block; width: auto; vertical-align: top;" checked>
+        <label style="width: auto;" for="node-input-temperature">Temperature</label></input>
+    </div>
+	<div class="form-row">
+        <input type="checkbox" id="node-input-humidity" style="display: inline-block; width: auto; vertical-align: top;" checked>
+        <label style="width: auto;" for="node-input-humidity">Humidity</label></input>
+    </div>
+	
+</script>
+
+<script type="text/html" data-help-name="air-monitor">
+    <p>Node that exposes PM2.5, CO2, TVOCs, Temperature, Humidity from QingPing Glass Monitor</p>
+</script>
