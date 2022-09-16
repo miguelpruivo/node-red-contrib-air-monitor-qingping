@@ -1,0 +1,120 @@
+[
+	{
+		"id": "532d7d141dc545cd",
+		"type": "air-monitor",
+		"z": "9c4e3c0604fc0411",
+		"name": "",
+		"refresh": "30",
+		"token": "42544d695835703737597857306e6b34",
+		"ip": "192.168.1.176",
+		"pm25": true,
+		"co2": true,
+		"tvocs": true,
+		"temperature": true,
+		"humidity": true,
+		"x": 530,
+		"y": 680,
+		"wires": [
+			[
+				"b96f0cf670356e19",
+				"60bf243302cbe38e",
+				"1b613249dd71c489",
+				"41f127735a076a31",
+				"a20b09f07360b9b3"
+			]
+		]
+	},
+	{
+		"id": "b96f0cf670356e19",
+		"type": "debug",
+		"z": "9c4e3c0604fc0411",
+		"name": "debug 1",
+		"active": true,
+		"tosidebar": true,
+		"console": false,
+		"tostatus": false,
+		"complete": "payload",
+		"targetType": "msg",
+		"statusVal": "",
+		"statusType": "auto",
+		"x": 780,
+		"y": 500,
+		"wires": []
+	},
+	{
+		"id": "60bf243302cbe38e",
+		"type": "function",
+		"z": "9c4e3c0604fc0411",
+		"name": "Filter temperature",
+		"func": "msg.payload = {'CurrentTemperature':msg.payload['temperature']};\nreturn msg;",
+		"outputs": 1,
+		"noerr": 0,
+		"initialize": "",
+		"finalize": "",
+		"libs": [],
+		"x": 990,
+		"y": 580,
+		"wires": [
+			[
+				"eb8b0fd2b1875be4"
+			]
+		]
+	},
+	{
+		"id": "1b613249dd71c489",
+		"type": "function",
+		"z": "9c4e3c0604fc0411",
+		"name": "Filter humidity",
+		"func": "msg.payload = {'CurrentRelativeHumidity':msg.payload['humidity']};\nreturn msg;",
+		"outputs": 1,
+		"noerr": 0,
+		"initialize": "",
+		"finalize": "",
+		"libs": [],
+		"x": 980,
+		"y": 640,
+		"wires": [
+			[
+				"d7c561bdae55ef80"
+			]
+		]
+	},
+	{
+		"id": "41f127735a076a31",
+		"type": "function",
+		"z": "9c4e3c0604fc0411",
+		"name": "Filter Air Quality",
+		"func": "var aqtvoc= 0;\nvar aqpm25 = 0;\nvar pm25 = msg.payload['pm25'];\nvar tvoc = msg.payload['tvoc'];\n\nif(tvoc <= 65){\n    aqtvoc = 1;\n} else if(tvoc <= 220){\n    aqtvoc = 2;\n} else if(tvoc <= 660){\n    aqtvoc = 3;\n} else if(tvoc <= 2000) {\n    aqtvoc = 4;\n} else {\n    aqtvoc = 5;\n}\n\nif(pm25 <= 12){\n    aqpm25 = 1;\n} else if(aqpm25 <= 35){\n    aqpm25 = 2;\n} else if(aqpm25 <= 55){\n    aqpm25 = 3;\n} else if(aqpm25 <= 150) {\n    aqpm25 = 4;\n} else {\n    aqpm25 = 5;\n}\n\nmsg.payload = {\n    'StatusActive':true,\n    'PM2_5Density':msg.payload['pm25'],\n    'VOCDensity':msg.payload['tvoc'],\n    'AirQuality': Math.max(aqtvoc, aqpm25)\n};\n\nreturn msg;",
+		"outputs": 1,
+		"noerr": 0,
+		"initialize": "",
+		"finalize": "",
+		"libs": [],
+		"x": 980,
+		"y": 700,
+		"wires": [
+			[
+				"903f29bf83f9cb1a"
+			]
+		]
+	},
+	{
+		"id": "a20b09f07360b9b3",
+		"type": "function",
+		"z": "9c4e3c0604fc0411",
+		"name": "Filter Carbon Dioxide",
+		"func": "var co2 = msg.payload['co2'];\nvar peak = global.get('co2peak') | 0;\n\nif(co2 > peak){\n    global.set('co2peak', co2);\n    \n    if(global.get('id') != null) {\n        clearTimeout(global.get('id'));\n    }\n    global.set('id', setTimeout(function(){\n        global.set('co2peak', 0);\n    }, 108000));\n}\n\n\nmsg.payload = {\n    'StatusActive':true,\n    'CarbonDioxideLevel':co2,\n    'CarbonDioxidePeakLevel': peak,\n    'CarbonDioxideDetected':co2 >= 1000 ? 1 : 0,\n};\n\nreturn msg;",
+		"outputs": 1,
+		"noerr": 0,
+		"initialize": "",
+		"finalize": "",
+		"libs": [],
+		"x": 1000,
+		"y": 760,
+		"wires": [
+			[
+				"41db6c4d7c6caa67"
+			]
+		]
+	}
+]

@@ -1,10 +1,16 @@
 {
   "name": "node-red-contrib-air-monitor-qingping",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Air Monitor plugin for QingPing Glass Monitor that exposes CO2, TVOCs, Temperature, Humidity and PM2.5",
   "author": "Miguel Ruivo",
   "license": "MIT",
+  "url": "https://github.com/miguelpruivo/node-red-contrib-air-monitor-qingping/issues",
+  "email": "github@miguelruivo.com",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "node-red": {
+    "version": ">=1.0.0",
     "nodes": {
       "air-monitor": "air-monitor.js"
     }
@@ -16,7 +22,9 @@
     "qingping",
     "airmonitor",
     "xiaomi",
-    "glassmonitor"
+    "glassmonitor",
+    "cgs1",
+    "node-red"
   ],
   "dependencies": {
     "miio": "^0.15.6"

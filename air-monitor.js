@@ -23,10 +23,12 @@ function discover(node, miio, config) {
 		node.log('Discovered Mi Clear Grass: ' + device.miioModel);
 
 		if (device.miioModel == 'cgllc.airmonitor.s1') {
+			node.status({ fill: "green", shape: "dot", text: "connected" });
 			loadData(node, device, config);
 		}
 	}).catch(err => {
 		node.error('Failed to discover Clear Glass with error ' + err);
+		node.status({ fill: "red", shape: "ring", text: "disconnected" });
 		setTimeout(function () {
 			discover(node, miio);
 		}, 30000);
