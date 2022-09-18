@@ -30,7 +30,7 @@ function discover(node, miio, config) {
 		node.error('Failed to discover Clear Glass with error ' + err);
 		node.status({ fill: "red", shape: "ring", text: "disconnected" });
 		setTimeout(function () {
-			discover(node, miio);
+			discover(node, miio, config);
 		}, 30000);
 	});
 }

@@ -1,3 +1,6 @@
+# 1.1.1
+- Adds missing `config` property on error handling.
+
 # 1.1.0
 - Adds status indicator
 - Adds example & missing metadata
