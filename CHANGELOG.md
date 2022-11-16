@@ -1,3 +1,6 @@
+# 1.1.2
+- Fixes error log string interpolation
+
 # 1.1.1
 - Adds missing `config` property on error handling.
 

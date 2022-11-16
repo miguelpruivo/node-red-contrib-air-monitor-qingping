@@ -54,7 +54,7 @@ function loadData(node, device, config) {
 			}
 		});
 	}).catch(function (err) {
-		node.error('Failed to get_prop  %s', err);
+		node.error('Failed to get_prop: ' + err);
 	});
 
 	setTimeout(function () {
