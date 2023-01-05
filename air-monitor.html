@@ -8,6 +8,7 @@
 			token: { value: "", required: true },
 			ip: { value: "", required: true, validate: RED.validators.regex(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/) },
 			pm25: { value: true },
+			pm10: { value: true },
 			co2: { value: true },
 			tvocs: { value: true },
 			temperature: { value: true },
@@ -43,6 +44,10 @@
 	<div class="form-row">
         <input type="checkbox" id="node-input-pm25" style="display: inline-block; width: auto; vertical-align: top;" checked>
         <label style="width: auto;" for="node-input-pm25">PM 2.5</label></input>
+    </div>
+	<div class="form-row">
+        <input type="checkbox" id="node-input-pm10" style="display: inline-block; width: auto; vertical-align: top;" checked>
+        <label style="width: auto;" for="node-input-pm10">PM 10</label></input>
     </div>
 	<div class="form-row">
         <input type="checkbox" id="node-input-co2" style="display: inline-block; width: auto; vertical-align: top;" checked>
