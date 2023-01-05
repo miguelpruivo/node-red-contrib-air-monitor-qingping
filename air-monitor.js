@@ -46,6 +46,7 @@ function loadData(node, device, config) {
 		var co2 = result['co2'];
 		var humidity = result['humidity'];
 		var pm25 = result['pm25'];
+		var pm10 = null;
 		var tvoc = result['tvoc'];
 		var temperature = result['temperature'];
 		node.send({
@@ -53,6 +54,7 @@ function loadData(node, device, config) {
 				...(config.co2 ? { 'co2': co2 } : {}),
 				...(config.humidity ? { 'humidity': humidity } : {}),
 				...(config.pm25 ? { 'pm25': pm25 } : {}),
+				...(config.pm10 ? { 'pm10': pm10 } : {}),
 				...(config.tvocs ? { 'tvoc': tvoc } : {}),
 				...(config.temperature ? { 'temperature': temperature } : {}),
 			}
@@ -101,6 +103,7 @@ function loadDataByMapping(node, device, config) {
 		var co2 = result['co2'];
 		var humidity = result['humidity'];
 		var pm25 = result['pm25'];
+		var pm10 = result['pm10'];
 		var tvoc = null;
 		var temperature = result['temperature'];
 		node.send({
@@ -108,6 +111,7 @@ function loadDataByMapping(node, device, config) {
 				...(config.co2 ? { 'co2': co2 } : {}),
 				...(config.humidity ? { 'humidity': humidity } : {}),
 				...(config.pm25 ? { 'pm25': pm25 } : {}),
+				...(config.pm10 ? { 'pm10': pm10 } : {}),
 				...(config.tvocs ? { 'tvoc': tvoc } : {}),
 				...(config.temperature ? { 'temperature': temperature } : {}),
 			}
